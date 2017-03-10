@@ -14,7 +14,7 @@ public class QLoginListener implements IUiListener{
     private DataIO dataIO;
     public QLoginListener(DataIO dataIO){
         this.dataIO = dataIO;
-    }
+    } 
     @Override
     public void onComplete(Object o) {
         Log.e("QLogin-onComplete:", "QQ登录seccuss...");
