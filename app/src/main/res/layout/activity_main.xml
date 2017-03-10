@@ -68,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv"
                 android:layout_margin="20dp"
+                android:background="@drawable/ic_fingerprint_black_48dp"
                 />
 
         </LinearLayout>
