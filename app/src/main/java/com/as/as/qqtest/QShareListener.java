@@ -19,19 +19,19 @@ public class QShareListener implements IUiListener{
     @Override
     public void onComplete(Object o) {
         Log.e("QShare-onComplete",o.toString());
-        App.showToast("分享成功"+o.toString());
-        dataIO.getLoginData("分享回调信息"+o.toString());
+        App.showToast("新浪分享成功"+o.toString());
+        dataIO.getLoginData("新浪分享回调信息"+o.toString());
     }
     @Override
     public void onError(UiError uiError) {
         Log.e("QShare-onError",uiError.toString());
-        App.showToast("分享失败");
-        dataIO.getLoginData("分享回调信息"+uiError.toString());
+        App.showToast("新浪分享失败");
+        dataIO.getLoginData("新浪分享回调信息"+uiError.toString());
 
     }
     @Override
     public void onCancel() {
-        Log.e("QShare-onCancel","取消分享");
-        App.showToast("取消分享");
+        Log.e("QShare-onCancel","取消新浪分享");
+        App.showToast("取消新浪分享");
     }
 }

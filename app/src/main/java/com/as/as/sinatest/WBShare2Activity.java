@@ -30,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.as.as.App;
+import com.as.as.Config;
 import com.as.as.R;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
@@ -52,9 +54,9 @@ import com.sina.weibo.sdk.exception.WeiboException;
  * @author SINA
  * @since 2013-10-22
  */
-public class WBShareActivity extends Activity implements OnClickListener, IWeiboHandler.Response {
+public class WBShare2Activity extends Activity implements OnClickListener, IWeiboHandler.Response {
 
-    private static final String TAG = "WBShareActivity";
+    private static final String TAG = "WBEntryActivity";
 
     public static final String KEY_SHARE_TYPE = "key_share_type";
     public static final int SHARE_CLIENT = 1;
@@ -74,7 +76,7 @@ public class WBShareActivity extends Activity implements OnClickListener, IWeibo
     /** 微博微博分享接口实例 */
     private IWeiboShareAPI  mWeiboShareAPI = null;
 
-    private int mShareType = SHARE_CLIENT;
+    private int mShareType =2;
     
     /**
      * @see {@link Activity#onCreate}
@@ -84,10 +86,10 @@ public class WBShareActivity extends Activity implements OnClickListener, IWeibo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
         initViews();
-        mShareType = getIntent().getIntExtra(KEY_SHARE_TYPE, SHARE_CLIENT);
+       // mShareType = getIntent().getIntExtra(KEY_SHARE_TYPE, SHARE_CLIENT);
         
         // 创建微博分享接口实例
-        mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, Constants.APP_KEY);
+        mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, Config.SINA_APP_KEY);
         // 注册第三方应用到微博客户端中，注册成功后该应用将显示在微博的应用列表中。
         // 但该附件栏集成分享权限需要合作申请，详情请查看 Demo 提示
         // NOTE：请务必提前注册，即界面初始化的时候或是应用程序初始化时，进行注册
@@ -191,10 +193,10 @@ public class WBShareActivity extends Activity implements OnClickListener, IWeibo
         request.multiMessage = weiboMessage;
         // 3. 发送请求消息到微博，唤起微博分享界面
         if (mShareType == SHARE_CLIENT) {
-            mWeiboShareAPI.sendRequest(WBShareActivity.this, request);
+            mWeiboShareAPI.sendRequest(WBShare2Activity.this, request);
         }
         else if (mShareType == SHARE_ALL_IN_ONE) {
-            AuthInfo authInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
+            AuthInfo authInfo = new AuthInfo(this, Config.SINA_APP_KEY, Config.SINA_REDIRECT_URL, Config.SINA_SCOPE);
             Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getApplicationContext());
             String token = "";
             if (accessToken != null) {
@@ -212,10 +214,13 @@ public class WBShareActivity extends Activity implements OnClickListener, IWeibo
                     Oauth2AccessToken newToken = Oauth2AccessToken.parseAccessToken(bundle);
                     AccessTokenKeeper.writeAccessToken(getApplicationContext(), newToken);
                     Toast.makeText(getApplicationContext(), "onAuthorizeComplete token = " + newToken.getToken(), Toast.LENGTH_SHORT).show();
+
+                    App.showToast("成功分享");
                 }
                 
                 @Override
                 public void onCancel() {
+                    App.showToast("取消分享");
                 }
             });
         }
@@ -230,7 +235,7 @@ public class WBShareActivity extends Activity implements OnClickListener, IWeibo
         String format = getString(formatId);
         String text = format;
         if (mTextCheckbox.isChecked() || mImageCheckbox.isChecked()) {
-            text = "@大屁老师，这是一个很漂亮的小狗，朕甚是喜欢-_-!!";
+            text = "这是一个很漂亮的小狗，朕甚是喜欢-_-!!";
         }
         return text;
     }

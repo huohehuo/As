@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.tencent.tauth.Tencent;
 
@@ -16,7 +18,8 @@ public class App extends Application{
     private static Tencent mTencent;
     private static Toast mToast;
     private static AuthInfo mAuthInfo;
-
+    /** 微博分享的接口实例 */
+    private static IWeiboShareAPI mWeiboShareAPI;
     //    private static App app = new App();
 //    public static App getApp(){
 //        return app;
@@ -30,6 +33,8 @@ public class App extends Application{
         mTencent = Tencent.createInstance(Config.QQ_ID, this);
 
         mAuthInfo = new AuthInfo(this, Config.SINA_APP_KEY,Config.SINA_REDIRECT_URL,Config.SINA_SCOPE);
+        // 创建微博 SDK 接口实例
+        mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, Config.SINA_APP_KEY);
 
 
     }
@@ -43,6 +48,10 @@ public class App extends Application{
     public static AuthInfo getSina(){
         return mAuthInfo;
     }
+    public static IWeiboShareAPI getmWeiboShareAPI(){
+        return mWeiboShareAPI;
+    }
+
     //全局Toast,致使无等待显示下一个Toast
     public static void showToast(String text) {
         if(mToast == null) {
