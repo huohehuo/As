@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+
     android:orientation="vertical"
     tools:context="com.as.as.MainActivity">
 
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv"
                 android:layout_margin="20dp"
-                android:background="@drawable/ic_fingerprint_black_48dp"
+                android:background="@drawable/ic_fingerprint_black"
                 />
 
         </LinearLayout>
