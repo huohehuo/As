@@ -2,10 +2,8 @@ package com.as.as;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,8 +13,8 @@ import com.as.as.qqtest.QLoginListener;
 import com.as.as.qqtest.QShareListener;
 import com.as.as.sinatest.SinaAuthListener;
 import com.as.as.sinatest.SinaIO;
-import com.as.as.sinatest.WBEntryActivity;
 import com.as.as.sinatest.WBShare2Activity;
+import com.as.as.wxapi.WeChatActivity;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.api.share.BaseResponse;
@@ -48,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
     public static final int SHARE_CLIENT = 1;
     public static final int SHARE_ALL_IN_ONE = 2;
     private int mShareType =2;
-
 
 
     //获取回调信息
@@ -99,16 +96,16 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
 
 
 
-    @OnClick({R.id.button, R.id.button2, R.id.button3, R.id.button4,R.id.btn5,R.id.btn6,R.id.btn7})
+    @OnClick({R.id.button, R.id.button2, R.id.button3, R.id.button4,R.id.btn5,R.id.btn6,R.id.btn7,R.id.btn8,R.id.btn9})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button://登录
+            case R.id.button://QQ登录
                 mTencent.login(this, "get_user_info", new QLoginListener(dataIO));
                 break;
-            case R.id.button2://分享
-                if (mTencent.getOpenId()==null){
-                    App.showToast("openid为空");
-                }
+            case R.id.button2://QQ分享
+//                if (mTencent.getOpenId()==null){
+//                    App.showToast("openid为空");
+//                }
                 final Bundle params = new Bundle();
                 params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
                 params.putString(QQShare.SHARE_TO_QQ_TITLE, "要分享的标题");
@@ -118,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
                 params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "测试应用222222");
                 mTencent.shareToQQ(MainActivity.this, params, new QShareListener(dataIO));
                 break;
-            case R.id.button3://退出登录
-                App.showToast("退出登录");
+            case R.id.button3://QQ退出登录
+                App.showToast("QQ退出登录");
                 tv.setText("");
                 mTencent.logout(MainActivity.this);
                 break;
@@ -127,11 +124,8 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
                 mSsoHandler = new SsoHandler(MainActivity.this, mAuthInfo);
                 mSsoHandler. authorize(new SinaAuthListener(sinaIO));
                 break;
-            case R.id.btn5:
+            case R.id.btn5://新浪分享
                 sendMultiMessage();
-                // 获取微博客户端相关信息，如是否安装、支持 SDK 的版本
-//                boolean isInstalledWeibo = mWeiboShareAPI.isWeiboAppInstalled();
-//                int supportApiLevel = mWeiboShareAPI.getWeiboAppSupportAPI();
                 break;
             case R.id.btn6://新浪用户登出
                 AccessTokenKeeper.clear(App.getContext());
@@ -146,9 +140,15 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
                     tv.setText("");
                 }
                 break;
-            case R.id.btn7:
+            case R.id.btn7://微博分享2（主要用于测试两个页面同时启用分享所返回的指定用于接收回调的Activity）
                 startActivity(new Intent(MainActivity.this,WBShare2Activity.class));
-
+                break;
+            case R.id.btn8://微信登录
+                startActivity(new Intent(MainActivity.this,WeChatActivity.class));
+                break;
+            case R.id.btn9://加水印的图片处理
+                startActivity(new Intent(MainActivity.this,ImgWaterActivity.class));
+                break;
         }
     }
     /**
@@ -157,13 +157,15 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
     private void sendMultiMessage() {
         // 1. 初始化微博的分享消息
         WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
-        weiboMessage.textObject = getTextObj();
+        TextObject textObject = new TextObject();
+        textObject.text ="我正在用第三方分享消息";
+        weiboMessage.textObject =textObject;
         // 2. 初始化从第三方到微博的消息请求
         SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
         // 用transaction唯一标识一个请求
         request.transaction = String.valueOf(System.currentTimeMillis());
         request.multiMessage = weiboMessage;
-        // 3. 发送请求消息到微博，唤起微博分享界面
+        // 3. 发送请求消息到微博，唤起微博分享界面(自动选择，客户端或者网页)
         if (mShareType == SHARE_ALL_IN_ONE) {
             //AuthInfo authInfo = new AuthInfo(this, Config.SINA_APP_KEY, Config.SINA_REDIRECT_URL, Config.SINA_SCOPE);
             Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(getApplicationContext());
@@ -187,34 +189,6 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }
-
-
-
-    /**
-     * 获取分享的文本模板。
-     *
-     * @return 分享的文本模板
-     */
-    private String getSharedText() {
-        int formatId = R.string.weibosdk_demo_share_text_template;
-        String format = getString(formatId);
-        String text = format;
-        if (true) {
-            text = "这是一个很漂亮的小狗，朕甚是喜欢-_-!!";
-        }
-        return text;
-    }
-
-    /**
-     * 创建文本消息对象。
-     * @return 文本消息对象。
-     */
-    private TextObject getTextObj() {
-        TextObject textObject = new TextObject();
-        textObject.text = getSharedText();
-        return textObject;
-    }
-
     /**
      * 接收微客户端博请求的数据。
      * 当微博客户端唤起当前应用并进行分享时，该方法被调用。
@@ -237,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
             }
         }
     }
+
 
 //    /**
 //     * 创建图片消息对象。

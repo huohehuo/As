@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_we_chat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context="com.as.as.wxapi.WeChatActivity">
+
+    <Button
+        android:id="@+id/wx_btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送纯文字"/>
+    <Button
+        android:id="@+id/wx_btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送图片"/>
+    <Button
+        android:id="@+id/wx_btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送网址"/>
+    <Button
+        android:id="@+id/wx_btn4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送音乐"/>
+    <Button
+        android:id="@+id/wx_btn5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送视频"/>
+<CheckBox
+    android:id="@+id/wx_check"
+    android:text="是否发送到朋友圈"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+
+</LinearLayout>

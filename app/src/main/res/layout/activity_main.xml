@@ -19,50 +19,86 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            <Button
-                android:text="QQ登录"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button" />
-            <Button
-                android:text="QQ分享"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2" />
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+                <Button
+                    android:text="QQ登录"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/button" />
+                <Button
+                    android:text="QQ分享"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/button2" />
             <Button
                 android:text="退出QQ登录"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/button3" />
-            <Button
-                android:text="新浪登录"
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button4" />
-            <Button
-                android:id="@+id/btn5"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="@string/weibosdk_demo_feature_share" />
+                android:layout_height="150dp">
+
+                <Button
+                    android:text="新浪登录"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/button4" />
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="6dp"
+                    android:text="@string/weibosdk_demo_feature_share" />
 
 
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="6dp"
+                    android:text="新浪分享2" />
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="6dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="onOauth"
+                    android:text="登出新浪帐号" />
+
+            </LinearLayout>
+
             <Button
-                android:id="@+id/btn7"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="分享2" />
-            <Button
-                android:id="@+id/btn6"
+                android:id="@+id/btn8"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:layout_marginTop="20dp"
                 android:onClick="onOauth"
-                android:text="登出新浪帐号" />
-
-
+                android:text="微信分享" />
+            <Button
+                android:id="@+id/btn9"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:layout_marginTop="20dp"
+                android:onClick="onOauth"
+                android:text="图片处理" />
 
             <TextView
                 android:layout_width="match_parent"
