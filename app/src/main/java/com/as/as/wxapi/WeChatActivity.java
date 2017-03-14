@@ -15,6 +15,7 @@ import com.as.as.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.sina.weibo.sdk.api.TextObject;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -45,7 +46,7 @@ public class WeChatActivity extends AppCompatActivity {
 
     private IWXAPI iwxapi = App.getWeChat();
 
-    private boolean isFriend;
+    private boolean isFriend=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,8 +129,9 @@ public class WeChatActivity extends AppCompatActivity {
                 if (type == Send_Img) {
                     WXImageObject imageObject = new WXImageObject(resource);
                     WXMediaMessage mediaMessage = new WXMediaMessage();
-                    mediaMessage.title = text;
-                    mediaMessage.description = "描述。。。。描述。。。。。。描述。。。。描述。。。。";
+                    mediaMessage.title = text+"并不会显示标题";
+                    mediaMessage.description = "并不会显示描述。。。。描述。。。。。。描述。。。。描述。。。。";
+                    //mediaMessage.mediaObject = getTextObj(text);//两个对象建立方式一样，所以会被替换掉不会共存
                     mediaMessage.mediaObject = imageObject;
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = buildTransaction("img");
@@ -144,8 +146,9 @@ public class WeChatActivity extends AppCompatActivity {
                     mediaMessage.title = text;
                     mediaMessage.description = "描述。。。";
                     mediaMessage.mediaObject = webpageObject;
+                    mediaMessage.setThumbImage(resource);
                     //Bitmap thumb = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-                    mediaMessage.thumbData = bmpToByteArray(resource, true);//压缩图片
+                    //mediaMessage.thumbData = bmpToByteArray(resource, true);//压缩图片
                     SendMessageToWX.Req req = new SendMessageToWX.Req();
                     req.transaction = buildTransaction("webpage");
                     req.message = mediaMessage;
@@ -202,5 +205,9 @@ public class WeChatActivity extends AppCompatActivity {
 
         return result;
     }
-
+    private static WXTextObject getTextObj(String text) {
+        WXTextObject textObject = new WXTextObject();
+        textObject.text = text;
+        return textObject;
+    }
 }
