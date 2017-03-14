@@ -62,7 +62,6 @@
             android:label="@string/app_name" />
         <activity android:name=".wxapi.WeChatActivity" />
         <activity android:name=".ImgWaterActivity" />
-        <activity android:name=".qqtest.QQActivity"></activity>
     </application>
 
 </manifest>
