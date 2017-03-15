@@ -36,6 +36,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/button2" />
+                <Button
+                    android:text="QQ分享"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/button21" />
             <Button
                 android:text="退出QQ登录"
                 android:layout_width="wrap_content"

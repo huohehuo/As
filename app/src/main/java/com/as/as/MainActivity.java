@@ -26,8 +26,12 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.constant.WBConstants;
+import com.tencent.connect.common.Constants;
 import com.tencent.connect.share.QQShare;
+import com.tencent.connect.share.QzoneShare;
 import com.tencent.tauth.Tencent;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
 
 
 
-    @OnClick({R.id.button, R.id.button2, R.id.button3, R.id.button4,R.id.btn5,R.id.btn6,R.id.btn7,R.id.btn8,R.id.btn9})
+    @OnClick({R.id.button, R.id.button2,R.id.button21, R.id.button3, R.id.button4,R.id.btn5,R.id.btn6,R.id.btn7,R.id.btn8,R.id.btn9})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button://QQ登录
@@ -114,6 +118,18 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
                 params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, "http://imgcache.qq.com/qzone/space_item/pre/0/66768.gif");
                 params.putString(QQShare.SHARE_TO_QQ_APP_NAME, "测试应用222222");
                 mTencent.shareToQQ(MainActivity.this, params, new QShareListener(dataIO));
+                break;
+            case R.id.button21://QQzone分享
+                final Bundle params2 = new Bundle();
+                ArrayList<String> aa = new ArrayList<>();
+                aa.add("http://imgcache.qq.com/qzone/space_item/pre/0/66768.gif");
+                params2.putString(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,"heheh");
+                params2.putString(QzoneShare.SHARE_TO_QQ_TITLE, "要分享的标题");
+                params2.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "要分享的摘要");
+                params2.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, "http://www.baidu.com");
+                params2.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, aa);
+                mTencent.shareToQzone(MainActivity.this, params2, new QShareListener(dataIO));
+
                 break;
             case R.id.button3://QQ退出登录
                 App.showToast("QQ退出登录");
@@ -179,11 +195,11 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       // Tencent.onActivityResult(requestCode,resultCode,data);
+       mTencent.onActivityResult(requestCode,resultCode,data);
         //腾讯获取返回
-        if (null != mTencent){
-            mTencent.onActivityResultData(requestCode, resultCode, data, new QLoginListener(dataIO));
-        }
+//        if (null != mTencent){
+//            mTencent.onActivityResultData(requestCode, resultCode, data, new QLoginListener(dataIO));
+//        }
         //新浪获取返回
         if (mSsoHandler != null) {
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
