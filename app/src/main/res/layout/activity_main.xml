@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,26 +27,26 @@
                 <Button
                     android:text="QQ登录"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/button" />
                 <Button
                     android:text="QQ分享"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/button2" />
                 <Button
-                    android:text="QQ分享"
+                    android:text="QQ空间分享"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/button21" />
             <Button
                 android:text="退出QQ登录"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/button3" />
             </LinearLayout>
 
@@ -66,7 +66,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_margin="6dp"
                     android:text="@string/weibosdk_demo_feature_share" />
 
 
@@ -75,15 +74,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_margin="6dp"
                     android:text="新浪分享2" />
                 <Button
                     android:id="@+id/btn6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_margin="6dp"
-                    android:layout_marginTop="20dp"
                     android:onClick="onOauth"
                     android:text="登出新浪帐号" />
 
