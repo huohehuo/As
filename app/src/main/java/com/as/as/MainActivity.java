@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
                 params2.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "要分享的摘要");
                 params2.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, "http://www.baidu.com");
                 params2.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, aa);
-                mTencent.shareToQzone(MainActivity.this, params2, new QShareListener(dataIO));
+                mTencent.shareToQzone(MainActivity.this, params2, new QLoginListener(dataIO));
 
                 break;
             case R.id.button3://QQ退出登录
@@ -195,11 +195,11 @@ public class MainActivity extends AppCompatActivity implements IWeiboHandler.Res
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       mTencent.onActivityResult(requestCode,resultCode,data);
+       //mTencent.onActivityResult(requestCode,resultCode,data);
         //腾讯获取返回
-//        if (null != mTencent){
-//            mTencent.onActivityResultData(requestCode, resultCode, data, new QLoginListener(dataIO));
-//        }
+        if (null != mTencent){
+            mTencent.onActivityResultData(requestCode, resultCode, data, new QLoginListener(dataIO));
+        }
         //新浪获取返回
         if (mSsoHandler != null) {
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);

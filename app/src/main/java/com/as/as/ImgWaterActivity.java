@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-
+//给图片加水印的方法
 public class ImgWaterActivity extends AppCompatActivity {
 
     private ImageView img;
